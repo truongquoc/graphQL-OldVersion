@@ -18,9 +18,14 @@ namespace GraphQl_solution.Infrastructure.Services
             return await this._authorRepository.GetDetail(id);
         }
 
-        public Task<List<Author>> GetAll()
+        public async Task<List<Author>> GetAll()
         {
-            throw new NotImplementedException();
+            return await this._authorRepository.GetAll();
+        }
+
+        public async Task<List<Book>> GetBookByAuthor(int id)
+        {
+            return await this._authorRepository.GetBooksByAuthor(id);
         }
     }
 }

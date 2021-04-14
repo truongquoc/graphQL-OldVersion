@@ -10,5 +10,7 @@ namespace GraphQl_solution.Infrastructure.Services
     {
         Task<Author> GetDetail(int id);
         Task<List<Author>> GetAll();
+
+        Task<List<Book>> GetBookByAuthor(int id);
     }
 }

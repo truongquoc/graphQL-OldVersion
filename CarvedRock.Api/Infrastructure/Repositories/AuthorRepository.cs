@@ -14,13 +14,16 @@ namespace GraphQl_solution.Infrastructure
         {
             _context = context;
         }
-        public Task<List<Author>> GetAll()
-        {
-            throw new NotImplementedException();
-            //return null;
-        }
+        public async Task<List<Author>> GetAll() => await Task.FromResult(
+            await _context.Authors.ToListAsync()
+            );
+
+        public async Task<List<Book>> GetBooksByAuthor(int id) => await Task.FromResult(
+            await _context.Books.Where(i => i.AuthorId == id).ToListAsync());
 
         public async Task<Author> GetDetail(int id) => await Task.FromResult(
             _context.Authors.Include(a => a.Books).FirstOrDefault(i => i.Id == id));
+
+        
     }
 }
