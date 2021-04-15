@@ -19,6 +19,12 @@ namespace CarvedRock.Api.Infrastructure.Repositories
         {
             return await _bookRepository.GetAll();
         }
+
+        public Task<List<Book>> GetBooksByAuthorId(int authorId)
+        {
+            return _bookRepository.GetAllBookByAuthorId(authorId);
+        }
+
         public Task<Book> GetDetail(int id)
         {
             return _bookRepository.GetDetail(id);

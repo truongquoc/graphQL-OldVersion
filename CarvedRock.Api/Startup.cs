@@ -11,6 +11,7 @@ using GraphQl_solution.Database;
 using GraphQl_solution.GraphQL;
 using GraphQl_solution.Infrastructure;
 using GraphQl_solution.Infrastructure.Services;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -38,11 +39,12 @@ namespace CarvedRock.Api
                 context.UseInMemoryDatabase("database");
             });
           
-            services.AddTransient<IAuthorRepository, AuthorRepository>();
-            services.AddTransient<IAuthorService, AuthorService>();
-            services.AddTransient<IBookRepository, BookRepository>();
-            services.AddTransient<IBookService, BookService>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IBookService, BookService>();
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
+            services.AddMediatR(typeof(Startup));
             services.AddScoped<AuthorSchema>();
             services.AddGraphQL(o => { o.ExposeExceptions = false; })
                 .AddGraphTypes(ServiceLifetime.Scoped);

@@ -10,6 +10,7 @@ namespace GraphQl_solution.Infrastructure
     public class AuthorRepository : IAuthorRepository
     {
         private readonly AppDbContext _context;
+
         public AuthorRepository(AppDbContext context)
         {
             _context = context;
@@ -22,8 +23,6 @@ namespace GraphQl_solution.Infrastructure
             await _context.Books.Where(i => i.AuthorId == id).ToListAsync());
 
         public async Task<Author> GetDetail(int id) => await Task.FromResult(
-            _context.Authors.Include(a => a.Books).FirstOrDefault(i => i.Id == id));
-
-        
+            _context.Authors.FirstOrDefault(i => i.Id == id));
     }
 }

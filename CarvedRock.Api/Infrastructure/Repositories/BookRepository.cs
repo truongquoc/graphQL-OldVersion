@@ -20,6 +20,16 @@ namespace CarvedRock.Api.Infrastructure.Repositories
             await _context.Books.ToListAsync()
             );
 
+        public async Task<List<Book>> GetAllBookByAuthorId(int authorId)
+        {
+            return await Task.FromResult(_context.Books.Where(e => e.AuthorId == authorId).ToList());
+        }
+
+        public async Task<List<Book>> GetAllBookByAuthorIds(List<int> authorIds)
+        {
+            return await Task.FromResult(_context.Books.Where(e => authorIds.Contains(e.AuthorId)).ToList());
+        }
+
         public async Task<Book> GetDetail(int id) => await Task.FromResult(
             _context.Books.Include(a => a.Author).FirstOrDefault(i => i.Id == id));
     }

@@ -10,5 +10,7 @@ namespace CarvedRock.Api.Infrastructure.Repositories
     {
         Task<List<Book>> GetAll();
         Task<Book> GetDetail(int id);
+        Task<List<Book>> GetAllBookByAuthorId(int authorId);
+        Task<List<Book>> GetAllBookByAuthorIds(List<int> authorIds);
     }
 }
