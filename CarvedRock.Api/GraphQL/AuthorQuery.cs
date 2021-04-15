@@ -1,4 +1,4 @@
-using CarvedRock.Api.Domain.Queries;
+using CarvedRock.Api.Domain;
 using GraphQL;
 using GraphQL.Types;
 using GraphQl_solution.Database;
@@ -32,16 +32,16 @@ namespace GraphQl_solution.GraphQL
                 {
                     var id = context.GetArgument<int>("id");
                     //return authorService.GetDetail(id);
-                    return mediator.Send(new GetDetailQuery(id));
+                    return mediator.Send(new GetDetailAuthorRequest(id)).Result;
                 }
                 );
-            //Field<ListGraphType<AuthorType>>(
-            //    "Authors",
-            //    resolve: context =>
-            //    {
-            //        return authorService.GetAll();
-            //    }
-            //    );
+            Field<ListGraphType<AuthorType>>(
+                "Authors",
+                resolve: context =>
+                {
+                    return mediator.Send(new GetAllAuthorRequest()).Result;
+                }
+                );
             //Field<ListGraphType<BookType>>(
             //    "Books",
             //    arguments: new QueryArguments(new
